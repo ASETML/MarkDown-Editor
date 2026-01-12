@@ -1,5 +1,6 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
+const {marked} = require("marked")
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -18,5 +19,10 @@ app.whenReady().then(() => {
 
   app.on('window-all-closed', () => {
     app.quit()
+  })
+
+  ipcMain.on("markdown:parse", (event, arg) => {
+    console.log(arg)
+    event.returnValue = marked(arg)
   })
 })

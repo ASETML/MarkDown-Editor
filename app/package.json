@@ -22,6 +22,7 @@
     "electron": "^39.2.7"
   },
   "dependencies": {
-    "marked": "^17.0.1"
+    "marked": "^17.0.1",
+    "showdown": "^2.1.0"
   }
 }

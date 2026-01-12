@@ -1,12 +1,5 @@
-const { contextBridge } = require('electron');
-let marked;
-
-try {
-    marked = require("https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js");
-} catch (error) {
-    console.error('Failed to load marked:', error); // Log the error
-}
+const { contextBridge, ipcRenderer  } = require('electron');
 
 contextBridge.exposeInMainWorld('markdown', {
-    parse: (text) => marked ? marked(text) : '',
+    parse: (text) => ipcRenderer.sendSync("markdown:parse", text),
 });
