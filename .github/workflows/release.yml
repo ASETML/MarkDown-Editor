@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-${{ matrix.os }}
-          path: ./out/ # Specify the path to your built app
+          path: ./out/* # Specify the path to your built app
 
   release:
     runs-on: ubuntu-latest
