@@ -48,46 +48,46 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           tar -a -c -f ./out/markdown-editor-win32-x64.zip -C ./out/markdown-editor-win32-x64 .
-          tree /F
+          tree /F /A
 
       - name: Upload build artifacts Linux (deb)
         if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: app-${{ matrix.os }}-deb
           path: ./out/make/deb/x64/markdown-editor_1.0.0_amd64.deb
             
       - name: Upload build artifacts Linux (rpm)
         if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: app-${{ matrix.os }}-rpm
           path: ./out/make/rpm/x64/markdown-editor-1.0.0-1.x86_64.rpm
 
       - name: Upload build artifacts Linux (zip)
         if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: app-${{ matrix.os }}-zip
           path: ./out/markdown-editor-linux-x64.zip
 
       - name: Upload build artifacts Windows (installer)
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: app-${{ matrix.os }}-installer
           path: './out/make/squirrel.windows/x64/markdown-editor-1.0.0 Setup.exe'
             
       - name: Upload build artifacts Windows (portable)
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: app-${{ matrix.os }}-portable
           path: './out/make/markdown-editor 1.0.0.exe'
 
       - name: Upload build artifacts Windows (zip)
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: app-${{ matrix.os }}-zip
           path: ./out/markdown-editor-win32-x64.zip
