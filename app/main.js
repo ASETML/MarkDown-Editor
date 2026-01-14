@@ -11,17 +11,21 @@ const template = [
     submenu: [
       {
         label: 'Open file',
+        accelerator: "Control+O",
         click: async () => {
           const result = await dialog.showOpenDialog({ properties: ['openFile'] });
-          console.log("RESULT: " + result)
           if (result.canceled || result.filePaths.length === 0) return;
-
           const text = fs.readFileSync(result.filePaths[0], 'utf8');
 
-          console.log("TEXT: " + text)
           // Send the file content to the renderer process
           win.webContents.send('file-opened', text);
-          console.log("SENT")
+        }
+      },
+      {
+        label: 'Save',
+        accelerator: "Control+S",
+        click: async () => {
+          win.webContents.send('file-saved');
         }
       },
       {

@@ -4,13 +4,17 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 module.exports = {
   packagerConfig: {
     asar: true,
+    //icon: "client/images/MarkDownEditor-logo"
   },
   rebuildConfig: {},
   makers: [
     //Win
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        //iconUrl: "client/images/MarkDownEditor-logo.png",
+        //setupIcon: "client/images/MarkDownEditor-logo.png"
+      },
     },
     //Debian
     {
@@ -18,7 +22,8 @@ module.exports = {
       config: {
         options: {
           maintainer: 'ASETML',
-          homepage: 'https://github.com/ASETML/MarkDown-Editor'
+          homepage: 'https://github.com/ASETML/MarkDown-Editor',
+          //icon: "client/images/MarkDownEditor-logo.png"
         }
       }
     },
@@ -27,14 +32,17 @@ module.exports = {
       name: '@electron-forge/maker-rpm',
       config: {
         options: {
-          homepage: 'https://github.com/ASETML/MarkDown-Editor'
+          homepage: 'https://github.com/ASETML/MarkDown-Editor',
+          //icon: "client/images/MarkDownEditor-logo.png"
         }
       }
     },
     //Win Portable
     {
       "name": "@rabbitholesyndrome/electron-forge-maker-portable",
-      config: {}
+      config: {
+        //icon: "client/images/MarkDownEditor-logo.png"
+      }
     }
   ],
   plugins: [

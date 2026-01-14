@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer  } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
 
 //Communication backend frontend
 contextBridge.exposeInMainWorld('markdown', {
@@ -9,6 +9,7 @@ contextBridge.exposeInMainWorld('markdown', {
     },
 });
 
+//Ouverture du fichier: remplacer le texte
 window.addEventListener('DOMContentLoaded', () => {
   const editor = document.getElementById('editor')
   ipcRenderer.on('file-opened', (_event, value) => {
@@ -17,5 +18,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const md = document.getElementById("editor").value
     const html = ipcRenderer.sendSync("markdown:parse", md)
     document.getElementById("preview").innerHTML = html
+  })
+})
+
+//Sauvegarde du fichier: renvoyer le texte
+window.addEventListener('DOMContentLoaded', () => {
+  ipcRenderer.on('file-saved', (_event, _value) => {    
+    const md = document.getElementById("editor").value
+    ipcRenderer.sendSync("file:save", md)
   })
 })

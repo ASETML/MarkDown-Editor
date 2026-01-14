@@ -1,4 +1,5 @@
 const { ipcMain } = require('electron')
+const { dialog } = require('electron/main')
 const fs = require("node:fs")
 
 //Contient les fonctions pour la gestion des fichiers
@@ -8,9 +9,10 @@ function fileModule() {
         event.returnValue = fs.readFileSync(arg, 'utf8');
     })
 
-    //[file.md, montexte]
-    ipcMain.on("file:save", (event, arg) => {
-        event.returnValue = fs.writeFileSync(arg[0], arg[1]);
+    //Sauve le fichier
+    ipcMain.on("file:save", async (event, arg) => {
+        const result = await dialog.showOpenDialog({ properties: ['promptToCreate'] });
+        event.returnValue = fs.writeFileSync(result.filePaths[0], arg);
     })
 }
 
