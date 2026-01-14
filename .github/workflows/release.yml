@@ -40,17 +40,17 @@ jobs:
 
       - name: Zip Linux
         if: matrix.os == 'ubuntu-latest'
-        run: zip -r markdown-editor-linux-x64.zip ./out/markdown-editor-linux-x64
+        run: zip -r ./out/markdown-editor-linux-x64.zip ./out/markdown-editor-linux-x64
 
       - name: Zip Windows
         if: matrix.os == 'windows-latest'
-        run: tar -a -c -f markdown-editor-win32-x64.zip -C .out/markdown-editor-win32-x64 .
+        run: tar -a -c -f ./out/markdown-editor-win32-x64.zip -C ./out/markdown-editor-win32-x64 .
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: app-${{ matrix.os }}
-          path: out # Specify the path to your built app
+          path: ./out/ # Specify the path to your built app
 
   release:
     runs-on: ubuntu-latest
