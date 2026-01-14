@@ -21,6 +21,7 @@ A markdown editor in electronjs
 	- Chacun peux self-hosted son serveur
 	- On renseigne l'url du serveur et ses credentials et on peut synchroniser
 - Ctrl+Z
+- Workflow pour build l'app
 
 ## Objectifs
 ### Semaine 1

@@ -1,0 +1,79 @@
+name: Build and Release Electron App
+
+on:
+  workflow_dispatch:
+    inputs:
+      version-bump:
+        description: 'Version bump type (major, minor, patch)'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14' # Specify your Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Electron app
+        run: npm run build # Adjust this command according to your build script
+
+      - name: Package Electron app
+        run: npm run package # Adjust this command according to your packaging script
+
+      - name: ls
+        run: ls -aR
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-${{ matrix.os }}
+          path: path/to/your/built/app # Specify the path to your built app
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: app-linux # Adjust this based on your output name
+          path: ./artifacts # You can specify a directory to download into
+      
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Bump version
+        id: bump_version
+        run: |
+          npm version ${{ github.event.inputs.version-bump }}
+          echo "new_version=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+      
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.new_version }}
+          files: |
+            ./artifacts/linux/*
+            ./artifacts/windows/*
+            ./artifacts/macos/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
