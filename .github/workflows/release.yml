@@ -50,11 +50,47 @@ jobs:
           tar -a -c -f ./out/markdown-editor-win32-x64.zip -C ./out/markdown-editor-win32-x64 .
           dir ./out
 
-      - name: Upload build artifacts
+      - name: Upload build artifacts Linux (deb)
+        if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: app-${{ matrix.os }}
-          path: ./out/* # Specify the path to your built app
+          name: app-${{ matrix.os }}-deb
+          path: ./out/make/deb/x64/markdown-editor_1.0.0_amd64.deb
+            
+      - name: Upload build artifacts Linux (rpm)
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ matrix.os }}-rpm
+          path: ./out/make/rpm/x64/markdown-editor-1.0.0-1.x86_64.rpm
+
+      - name: Upload build artifacts Linux (zip)
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ matrix.os }}-zip
+          path: ./out/markdown-editor-linux-x64.zip
+
+      - name: Upload build artifacts Windows (installer)
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ matrix.os }}-installer
+          path: './out/make/squirrel.windows/x64/markdown-editor-1.0.0 Setup.exe'
+            
+      - name: Upload build artifacts Windows (portable)
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ matrix.os }}-portable
+          path: '.out/make/markdown-editor 1.0.0.exe'
+
+      - name: Upload build artifacts Windows (zip)
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ matrix.os }}-zip
+          path: .out/markdown-editor-win32-x64.zip
 
   release:
     runs-on: ubuntu-latest
@@ -63,13 +99,13 @@ jobs:
       - name: Download build artifacts Linux
         uses: actions/download-artifact@v7
         with:
-          name: app-ubuntu-latest # Adjust this based on your output name
+          name: app-ubuntu-latest-deb # Adjust this based on your output name
           path: ./artifacts # You can specify a directory to download into
 
       - name: Download build artifacts Windows
         uses: actions/download-artifact@v7
         with:
-          name: app-windows-latest # Adjust this based on your output name
+          name: app-windows-latest* # Adjust this based on your output name
           path: ./artifacts # You can specify a directory to download into
       
       - name: Checkout repository
