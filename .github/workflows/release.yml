@@ -36,7 +36,7 @@ jobs:
         run: npm install
 
       - name: Build Electron app
-        run: npm run build # Adjust this command according to your build script
+        run: npm run make # Adjust this command according to your build script
 
       - name: Package Electron app
         run: npm run package # Adjust this command according to your packaging script
