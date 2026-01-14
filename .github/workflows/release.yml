@@ -43,12 +43,41 @@ jobs:
         run: |
           zip -r ./out/markdown-editor-linux-x64.zip ./out/markdown-editor-linux-x64
           ls -AR ./out
+          if test -f ./out/make/deb/x64/markdown-editor_1.0.0_amd64.deb; then
+            echo "File exists. ./out/make/deb/x64/markdown-editor_1.0.0_amd64.deb"
+          fi
+
+          if test -f ./out/make/rpm/x64/markdown-editor-1.0.0-1.x86_64.rpm; then
+            echo "File exists. ./out/make/rpm/x64/markdown-editor-1.0.0-1.x86_64.rpm"
+          fi
+
+          if test -f ./out/markdown-editor-linux-x64.zip then
+            echo "File exists. ./out/markdown-editor-linux-x64.zip"
+          fi
 
       - name: Zip Windows
         if: matrix.os == 'windows-latest'
         run: |
           tar -a -c -f ./out/markdown-editor-win32-x64.zip -C ./out/markdown-editor-win32-x64 .
           dir ./out
+          if exist ./out/make/squirrel.windows/x64/markdown-editor-1.0.0 Setup.exe (
+              rem file exists ./out/make/squirrel.windows/x64/markdown-editor-1.0.0 Setup.exe
+          ) else (
+              rem file doesn't exist
+          )
+
+          if exist ./out/make/markdown-editor 1.0.0.exe (
+              rem file exists ./out/make/markdown-editor 1.0.0.exe
+          ) else (
+              rem file doesn't exist
+          )
+
+          if exist ./out/markdown-editor-win32-x64.zip (
+              rem file exists ./out/markdown-editor-win32-x64.zip
+          ) else (
+              rem file doesn't exist
+          )
+
 
       - name: Upload build artifacts Linux (deb)
         if: matrix.os == 'ubuntu-latest'
@@ -83,14 +112,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-${{ matrix.os }}-portable
-          path: '.out/make/markdown-editor 1.0.0.exe'
+          path: './out/make/markdown-editor 1.0.0.exe'
 
       - name: Upload build artifacts Windows (zip)
         if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
           name: app-${{ matrix.os }}-zip
-          path: .out/markdown-editor-win32-x64.zip
+          path: ./out/markdown-editor-win32-x64.zip
 
   release:
     runs-on: ubuntu-latest
