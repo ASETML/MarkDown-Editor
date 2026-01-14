@@ -1,7 +1,9 @@
+//Preview au démarrage
 document.addEventListener('DOMContentLoaded', function() {
     showPreview();
 }, false);
 
+//Tab
 document.getElementById('editor').addEventListener('keydown', function(e) {
   if (e.key == 'Tab') {
     e.preventDefault();
@@ -18,11 +20,12 @@ document.getElementById('editor').addEventListener('keydown', function(e) {
   }
 });
 
+//Show the preview
 const showPreview = () => {
     const md = document.getElementById("editor").value
     const html = markdown.parse(md)
     document.getElementById("preview").innerHTML = html
 }
 
-var area = document.getElementById("editor");
-area.addEventListener('input', showPreview, false);
+//Preview lorsqu'on écrit
+document.getElementById("editor").addEventListener('input', showPreview, false);
