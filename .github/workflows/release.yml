@@ -40,11 +40,15 @@ jobs:
 
       - name: Zip Linux
         if: matrix.os == 'ubuntu-latest'
-        run: zip -r ./out/markdown-editor-linux-x64.zip ./out/markdown-editor-linux-x64
+        run: |
+          zip -r ./out/markdown-editor-linux-x64.zip ./out/markdown-editor-linux-x64
+          ls -AR ./out
 
       - name: Zip Windows
         if: matrix.os == 'windows-latest'
-        run: tar -a -c -f ./out/markdown-editor-win32-x64.zip -C ./out/markdown-editor-win32-x64 .
+        run: |
+          tar -a -c -f ./out/markdown-editor-win32-x64.zip -C ./out/markdown-editor-win32-x64 .
+          dir ./out
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -56,10 +60,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Download build artifacts
+      - name: Download build artifacts Linux
         uses: actions/download-artifact@v7
         with:
-          name: app-linux # Adjust this based on your output name
+          name: app-ubuntu-latest # Adjust this based on your output name
+          path: ./artifacts # You can specify a directory to download into
+
+      - name: Download build artifacts Windows
+        uses: actions/download-artifact@v7
+        with:
+          name: app-windows-latest # Adjust this based on your output name
           path: ./artifacts # You can specify a directory to download into
       
       - name: Checkout repository
