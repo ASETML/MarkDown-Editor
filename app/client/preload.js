@@ -25,6 +25,14 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+//Sauvegarde du fichier: renvoyer le texte
+window.addEventListener("DOMContentLoaded", () => {
+  ipcRenderer.on("file-saved-as", (_event, _value) => {
+    const md = document.getElementById("editor").value;
+    ipcRenderer.sendSync("file:save-as", md);
+  });
+});
+
 //Export du fichier: renvoyer le texte
 window.addEventListener("DOMContentLoaded", () => {
   ipcRenderer.on("file-exported", (_event, _value) => {

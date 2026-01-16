@@ -1,9 +1,10 @@
 const { app, BrowserWindow, screen } = require("electron");
 const { Menu, dialog } = require("electron/main");
-const path = require("node:path");
 const { markdownModule } = require("./src/markdown.js");
 const { fileModule } = require("./src/file.js");
 const fs = require("fs");
+const path = require("node:path");
+const { configFile } = require("./src/configFile.js");
 
 let win = null;
 const template = [
@@ -27,14 +28,7 @@ const template = [
           const text = fs.readFileSync(result.filePaths[0], "utf8");
 
           //Stocker le chemin du fichier dans le fichier de config
-          const configFilePath = path.join(
-            app.getPath("userData"),
-            "config.json",
-          );
-          const configJson = fs.readFileSync(configFilePath, "utf8");
-          let config = JSON.parse(configJson);
-          config.OpenedFile = result.filePaths[0];
-          fs.writeFileSync(configFilePath, JSON.stringify(config));
+          configFile.setOpenedFile(result.filePaths[0]);
 
           // Send the file content to the renderer process
           win.webContents.send("file-opened", text);
@@ -45,6 +39,13 @@ const template = [
         accelerator: "Control+S",
         click: async () => {
           win.webContents.send("file-saved");
+        },
+      },
+      {
+        label: "Save As",
+        accelerator: "Control+Shift+S",
+        click: async () => {
+          win.webContents.send("file-saved-as");
         },
       },
       {
@@ -101,13 +102,7 @@ const createWindow = async () => {
 
 //Démarrer l'app
 app.whenReady().then(() => {
-  console.log(app.getPath("userData"));
-  const configFilePath = path.join(app.getPath("userData"), "config.json");
-
-  //Créer le fichier de config si il n'existe pas
-  if (fs.existsSync(configFilePath)) {
-    fs.writeFileSync(configFilePath, "{}");
-  }
+  configFile.createIfNotExist();
   createWindow();
 });
 

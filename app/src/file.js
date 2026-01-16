@@ -1,8 +1,8 @@
-const { ipcMain, app } = require("electron");
+const { ipcMain } = require("electron");
 const { dialog } = require("electron/main");
 const fs = require("node:fs");
-const path = require("node:path");
 const { mdToPdf } = require("md-to-pdf");
+const { configFile } = require("./configFile");
 
 //Contient les fonctions pour la gestion des fichiers
 //Ecoute les messages du frontend
@@ -13,11 +13,18 @@ function fileModule() {
 
   //Sauve le fichier
   ipcMain.on("file:save", async (event, arg) => {
-    const configFilePath = path.join(app.getPath("userData"), "config.json");
-    const configJson = fs.readFileSync(configFilePath, "utf8");
-    let config = JSON.parse(configJson);
+    event.returnValue = fs.writeFileSync(configFile.getOpenedFile(), arg);
+  });
 
-    event.returnValue = fs.writeFileSync(config.OpenedFile, arg);
+  //Sauve le fichier avec un nom
+  ipcMain.on("file:save-as", async (event, arg) => {
+    const result = await dialog.showOpenDialog({
+      properties: ["promptToCreate"],
+    });
+    //Mettre à jour le chemin du fichier
+    configFile.setOpenedFile(result.filePaths[0]);
+
+    event.returnValue = fs.writeFileSync(result.filePaths[0], arg);
   });
 
   //Export le fichier
