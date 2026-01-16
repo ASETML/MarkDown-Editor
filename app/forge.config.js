@@ -4,18 +4,19 @@ const { FuseV1Options, FuseVersion } = require("@electron/fuses");
 module.exports = {
   packagerConfig: {
     asar: true,
-    //icon: "client/images/MarkDownEditor-logo"
+    icon: "client/images/MarkDownEditor-logo.png"
   },
   rebuildConfig: {},
   makers: [
     //Win
-    {
+    //Crée un installer -> Pas besoin car appli portable
+    /*{
       name: "@electron-forge/maker-squirrel",
       config: {
         //iconUrl: "client/images/MarkDownEditor-logo.png",
         //setupIcon: "client/images/MarkDownEditor-logo.png"
       },
-    },
+    },*/
     //Debian
     {
       name: "@electron-forge/maker-deb",
@@ -41,7 +42,7 @@ module.exports = {
     {
       name: "@rabbitholesyndrome/electron-forge-maker-portable",
       config: {
-        //icon: "client/images/MarkDownEditor-logo.png"
+        icon: "client/images/MarkDownEditor-logo.png"
       },
     },
   ],
