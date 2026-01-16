@@ -1,34 +1,37 @@
 //Preview au démarrage
-document.addEventListener('DOMContentLoaded', function () {
-  showPreview();
-}, false);
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+    showPreview();
+  },
+  false,
+);
 
 //Tab
-document.getElementById('editor').addEventListener('keydown', function (e) {
-  if (e.key == 'Tab') {
+document.getElementById("editor").addEventListener("keydown", function (e) {
+  if (e.key == "Tab") {
     e.preventDefault();
     var start = this.selectionStart;
     var end = this.selectionEnd;
 
     // set textarea value to: text before caret + tab + text after caret
-    this.value = this.value.substring(0, start) +
-      "\t" + this.value.substring(end);
+    this.value =
+      this.value.substring(0, start) + "\t" + this.value.substring(end);
 
     // put caret at right position again
-    this.selectionStart =
-      this.selectionEnd = start + 1;
+    this.selectionStart = this.selectionEnd = start + 1;
   }
 });
 
 //Show the preview
 const showPreview = () => {
-  const md = document.getElementById("editor").value
-  const html = markdown.parse(md)
-  document.getElementById("preview").innerHTML = html
-}
+  const md = document.getElementById("editor").value;
+  const html = markdown.parse(md);
+  document.getElementById("preview").innerHTML = html;
+};
 
 //Preview lorsqu'on écrit
-document.getElementById("editor").addEventListener('input', showPreview, false);
+document.getElementById("editor").addEventListener("input", showPreview, false);
 
 //Logique de syncronisation de scroll entre preview et plaintext
 const editor = document.getElementById("editor");
@@ -41,11 +44,15 @@ let isScrolling = false;
 editor.addEventListener("scroll", () => {
   if (!isScrolling) {
     isScrolling = true;
-	//Big formule stackoverflow
-    const percentage = editor.scrollTop / (editor.scrollHeight - editor.clientHeight);
-    preview.scrollTop = percentage * (preview.scrollHeight - preview.clientHeight);
-    setTimeout(() => { isScrolling = false; }, 1); //1ms de timeout pour eviter boucle
-												   //Enlevez ca si vous voulez armageddon
+    //Big formule stackoverflow
+    const percentage =
+      editor.scrollTop / (editor.scrollHeight - editor.clientHeight);
+    preview.scrollTop =
+      percentage * (preview.scrollHeight - preview.clientHeight);
+    setTimeout(() => {
+      isScrolling = false;
+    }, 1); //1ms de timeout pour eviter boucle
+    //Enlevez ca si vous voulez armageddon
   }
 });
 
@@ -53,8 +60,11 @@ editor.addEventListener("scroll", () => {
 preview.addEventListener("scroll", () => {
   if (!isScrolling) {
     isScrolling = true;
-    const percentage = preview.scrollTop / (preview.scrollHeight - preview.clientHeight);
+    const percentage =
+      preview.scrollTop / (preview.scrollHeight - preview.clientHeight);
     editor.scrollTop = percentage * (editor.scrollHeight - editor.clientHeight);
-    setTimeout(() => { isScrolling = false; }, 1); 
+    setTimeout(() => {
+      isScrolling = false;
+    }, 1);
   }
 });

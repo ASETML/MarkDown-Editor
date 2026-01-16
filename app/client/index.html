@@ -1,25 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
-    <link rel="stylesheet" href="styles.css">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <link rel="stylesheet" href="styles.css" />
     <title>MarkDown-Editor</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <main>
-        <section class="editor">
-            <textarea id="editor"># MarkDown-Editor</textarea>
-        </section>
-        <section class="preview">
-            <div id="preview"></div>
-        </section>
+      <section class="editor">
+        <textarea id="editor"># MarkDown-Editor</textarea>
+      </section>
+      <section class="preview">
+        <div id="preview"></div>
+      </section>
     </main>
     <script src="renderer.js"></script>
-</body>
-
+  </body>
 </html>

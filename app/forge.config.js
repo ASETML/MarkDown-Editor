@@ -1,5 +1,5 @@
-const { FusesPlugin } = require('@electron-forge/plugin-fuses');
-const { FuseV1Options, FuseVersion } = require('@electron/fuses');
+const { FusesPlugin } = require("@electron-forge/plugin-fuses");
+const { FuseV1Options, FuseVersion } = require("@electron/fuses");
 
 module.exports = {
   packagerConfig: {
@@ -10,7 +10,7 @@ module.exports = {
   makers: [
     //Win
     {
-      name: '@electron-forge/maker-squirrel',
+      name: "@electron-forge/maker-squirrel",
       config: {
         //iconUrl: "client/images/MarkDownEditor-logo.png",
         //setupIcon: "client/images/MarkDownEditor-logo.png"
@@ -18,36 +18,36 @@ module.exports = {
     },
     //Debian
     {
-      name: '@electron-forge/maker-deb',
+      name: "@electron-forge/maker-deb",
       config: {
         options: {
-          maintainer: 'ASETML',
-          homepage: 'https://github.com/ASETML/MarkDown-Editor',
+          maintainer: "ASETML",
+          homepage: "https://github.com/ASETML/MarkDown-Editor",
           //icon: "client/images/MarkDownEditor-logo.png"
-        }
-      }
+        },
+      },
     },
     //Red Hat
     {
-      name: '@electron-forge/maker-rpm',
+      name: "@electron-forge/maker-rpm",
       config: {
         options: {
-          homepage: 'https://github.com/ASETML/MarkDown-Editor',
+          homepage: "https://github.com/ASETML/MarkDown-Editor",
           //icon: "client/images/MarkDownEditor-logo.png"
-        }
-      }
+        },
+      },
     },
     //Win Portable
     {
-      "name": "@rabbitholesyndrome/electron-forge-maker-portable",
+      name: "@rabbitholesyndrome/electron-forge-maker-portable",
       config: {
         //icon: "client/images/MarkDownEditor-logo.png"
-      }
-    }
+      },
+    },
   ],
   plugins: [
     {
-      name: '@electron-forge/plugin-auto-unpack-natives',
+      name: "@electron-forge/plugin-auto-unpack-natives",
       config: {},
     },
     // Fuses are used to enable/disable various Electron functionality
