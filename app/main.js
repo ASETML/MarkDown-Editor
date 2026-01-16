@@ -22,6 +22,7 @@ const template = [
                 name: "Markdown files",
                 extensions: ["md"],
               },
+              { name: "All Files", extensions: ["*"] },
             ],
           });
           if (result.canceled || result.filePaths.length === 0) return;
@@ -34,6 +35,7 @@ const template = [
           win.webContents.send("file-opened", text);
         },
       },
+      { type: "separator" },
       {
         label: "Save",
         accelerator: "Control+S",
@@ -48,6 +50,7 @@ const template = [
           win.webContents.send("file-saved-as");
         },
       },
+      { type: "separator" },
       {
         label: "Export",
         accelerator: "Control+E",
@@ -55,6 +58,7 @@ const template = [
           win.webContents.send("file-exported");
         },
       },
+      { type: "separator" },
       {
         label: "Exit",
         role: "quit",
@@ -94,6 +98,20 @@ const createWindow = async () => {
   win.maximize();
 
   win.once("ready-to-show", () => {
+    configFile.createIfNotExist();
+    const file = configFile.getOpenedFile();
+    //Ouvrir le dernier fichier par défaut
+    if (file && fs.existsSync(file)) {
+      //Stocker le chemin du fichier dans le fichier de config
+      configFile.setOpenedFile(file);
+
+      const text = fs.readFileSync(file, "utf8");
+
+      // Send the file content to the renderer process
+      win.webContents.send("file-opened", text);
+    } else {
+      configFile.setOpenedFile("");
+    }
     win.show(); // Show window only after it's ready
   });
 
@@ -102,7 +120,6 @@ const createWindow = async () => {
 
 //Démarrer l'app
 app.whenReady().then(() => {
-  configFile.createIfNotExist();
   createWindow();
 });
 

@@ -1,4 +1,4 @@
-const { ipcMain } = require("electron");
+const { ipcMain, Notification } = require("electron");
 const { dialog } = require("electron/main");
 const fs = require("node:fs");
 const { mdToPdf } = require("md-to-pdf");
@@ -13,18 +13,19 @@ function fileModule() {
 
   //Sauve le fichier
   ipcMain.on("file:save", async (event, arg) => {
-    event.returnValue = fs.writeFileSync(configFile.getOpenedFile(), arg);
+    const file = configFile.getOpenedFile();
+    if (file) {
+      const result = fs.writeFileSync(file, arg);
+      event.returnValue = result;
+      showNotification(file);
+    } else {
+      event.returnValue = await saveAs(arg);
+    }
   });
 
   //Sauve le fichier avec un nom
   ipcMain.on("file:save-as", async (event, arg) => {
-    const result = await dialog.showOpenDialog({
-      properties: ["promptToCreate"],
-    });
-    //Mettre à jour le chemin du fichier
-    configFile.setOpenedFile(result.filePaths[0]);
-
-    event.returnValue = fs.writeFileSync(result.filePaths[0], arg);
+    event.returnValue = await saveAs(arg);
   });
 
   //Export le fichier
@@ -35,11 +36,29 @@ function fileModule() {
       });
       const pdf = await mdToPdf({ content: arg });
       event.returnValue = fs.writeFileSync(result.filePaths[0], pdf.content);
-    } catch (e) {
-      console.log(e);
+    } catch {
       event.returnValue = null;
     }
   });
 }
+
+const saveAs = async (text) => {
+  const dialogResult = await dialog.showOpenDialog({
+    properties: ["promptToCreate"],
+  });
+  //Mettre à jour le chemin du fichier
+  configFile.setOpenedFile(dialogResult.filePaths[0]);
+
+  const result = fs.writeFileSync(dialogResult.filePaths[0], text);
+  showNotification(dialogResult.filePaths[0]);
+  return result;
+};
+
+const showNotification = (fileName) => {
+  new Notification({
+    title: "File Saved",
+    body: `The file ${fileName} à été sauvegardé`,
+  }).show();
+};
 
 module.exports = { fileModule };

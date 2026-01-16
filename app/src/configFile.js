@@ -6,7 +6,7 @@ const createIfNotExist = () => {
   const configFilePath = path.join(app.getPath("userData"), "config.json");
 
   //Créer le fichier de config si il n'existe pas
-  if (fs.existsSync(configFilePath)) {
+  if (!fs.existsSync(configFilePath)) {
     fs.writeFileSync(configFilePath, "{}");
   }
 };
