@@ -1,6 +1,6 @@
 {
   "name": "markdown-editor",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A markdown editor in electronjs",
   "homepage": "https://github.com/ASETML/MarkDown-Editor#readme",
   "bugs": {
@@ -14,11 +14,15 @@
   "author": "ASETML",
   "type": "commonjs",
   "main": "main.js",
+  "files": [
+    "client/images/*"
+  ],
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "lint": "eslint ."
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.8.3",
@@ -29,11 +33,16 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.11.1",
     "@electron-forge/plugin-fuses": "^7.11.1",
     "@electron/fuses": "^1.8.0",
+    "@eslint/css": "^0.14.1",
+    "@eslint/js": "^9.39.2",
     "@rabbitholesyndrome/electron-forge-maker-portable": "^0.2.0",
-    "electron": "^39.2.7"
+    "electron": "^39.2.7",
+    "eslint": "^9.39.2",
+    "globals": "^17.0.0"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
-    "marked": "^17.0.1"
+    "marked": "^17.0.1",
+    "md-to-pdf": "^5.2.5"
   }
 }

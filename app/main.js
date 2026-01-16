@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, screen, Tray  } = require('electron')
+const { app, BrowserWindow, screen  } = require('electron')
 const { Menu, dialog } = require('electron/main')
 const path = require('node:path')
 const { markdownModule } = require("./src/markdown.js")
@@ -29,6 +29,13 @@ const template = [
         }
       },
       {
+        label: 'Export',
+        accelerator: "Control+E",
+        click: async () => {
+          win.webContents.send('file-exported');
+        }
+      },
+      {
         label: "Exit",
         role: "quit"
       }
@@ -53,7 +60,6 @@ const template = [
 
 //Création de la fenêtre
 const createWindow = () => {
-  const tray = new Tray("client/images/MarkDownEditor-logo.png")
   win = new BrowserWindow({
     icon: "client/images/MarkDownEditor-logo.png",
     show: false,

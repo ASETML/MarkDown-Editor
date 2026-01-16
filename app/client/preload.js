@@ -28,3 +28,11 @@ window.addEventListener('DOMContentLoaded', () => {
     ipcRenderer.sendSync("file:save", md)
   })
 })
+
+//Export du fichier: renvoyer le texte
+window.addEventListener('DOMContentLoaded', () => {
+  ipcRenderer.on('file-exported', (_event, _value) => {    
+    const html = document.getElementById("preview").innerHTML
+    ipcRenderer.sendSync("file:export", html)
+  })
+})
