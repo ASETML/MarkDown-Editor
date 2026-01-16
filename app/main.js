@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen } = require("electron");
+const { app, BrowserWindow, screen, BaseWindow, ImageView, nativeImage, WebContentsView } = require("electron");
 const { Menu, dialog } = require("electron/main");
 const path = require("node:path");
 const { markdownModule } = require("./src/markdown.js");
@@ -62,7 +62,7 @@ const template = [
 ];
 
 //Création de la fenêtre
-const createWindow = () => {
+const createWindow = async () => {
   win = new BrowserWindow({
     icon: "client/images/MarkDownEditor-logo.png",
     show: false,
@@ -75,6 +75,7 @@ const createWindow = () => {
 
   win.loadFile("client/index.html");
   win.maximize();
+
   win.once("ready-to-show", () => {
     win.show(); // Show window only after it's ready
   });
