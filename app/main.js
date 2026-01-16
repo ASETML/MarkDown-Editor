@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen, BaseWindow, ImageView, nativeImage, WebContentsView } = require("electron");
+const { app, BrowserWindow, screen } = require("electron");
 const { Menu, dialog } = require("electron/main");
 const path = require("node:path");
 const { markdownModule } = require("./src/markdown.js");
@@ -16,9 +16,25 @@ const template = [
         click: async () => {
           const result = await dialog.showOpenDialog({
             properties: ["openFile"],
+            filters: [
+              {
+                name: "Markdown files",
+                extensions: ["md"],
+              },
+            ],
           });
           if (result.canceled || result.filePaths.length === 0) return;
           const text = fs.readFileSync(result.filePaths[0], "utf8");
+
+          //Stocker le chemin du fichier dans le fichier de config
+          const configFilePath = path.join(
+            app.getPath("userData"),
+            "config.json",
+          );
+          const configJson = fs.readFileSync(configFilePath, "utf8");
+          let config = JSON.parse(configJson);
+          config.OpenedFile = result.filePaths[0];
+          fs.writeFileSync(configFilePath, JSON.stringify(config));
 
           // Send the file content to the renderer process
           win.webContents.send("file-opened", text);
@@ -85,6 +101,13 @@ const createWindow = async () => {
 
 //Démarrer l'app
 app.whenReady().then(() => {
+  console.log(app.getPath("userData"));
+  const configFilePath = path.join(app.getPath("userData"), "config.json");
+
+  //Créer le fichier de config si il n'existe pas
+  if (fs.existsSync(configFilePath)) {
+    fs.writeFileSync(configFilePath, "{}");
+  }
   createWindow();
 });
 

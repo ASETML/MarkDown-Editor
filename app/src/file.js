@@ -1,6 +1,7 @@
-const { ipcMain } = require("electron");
+const { ipcMain, app } = require("electron");
 const { dialog } = require("electron/main");
 const fs = require("node:fs");
+const path = require("node:path");
 const { mdToPdf } = require("md-to-pdf");
 
 //Contient les fonctions pour la gestion des fichiers
@@ -12,10 +13,11 @@ function fileModule() {
 
   //Sauve le fichier
   ipcMain.on("file:save", async (event, arg) => {
-    const result = await dialog.showOpenDialog({
-      properties: ["promptToCreate"],
-    });
-    event.returnValue = fs.writeFileSync(result.filePaths[0], arg);
+    const configFilePath = path.join(app.getPath("userData"), "config.json");
+    const configJson = fs.readFileSync(configFilePath, "utf8");
+    let config = JSON.parse(configJson);
+
+    event.returnValue = fs.writeFileSync(config.OpenedFile, arg);
   });
 
   //Export le fichier

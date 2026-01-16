@@ -3,10 +3,6 @@ const { contextBridge, ipcRenderer } = require("electron");
 //Communication backend frontend
 contextBridge.exposeInMainWorld("markdown", {
   parse: (text) => ipcRenderer.sendSync("markdown:parse", text),
-  openFile: async () => {
-    console.log("openFile");
-    return await ipcRenderer.invoke("open-file");
-  },
 });
 
 //Ouverture du fichier: remplacer le texte
