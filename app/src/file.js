@@ -36,72 +36,34 @@ function fileModule() {
       });
 
       const options = {
-        template: fs.readFileSync('template.html', 'utf8'),
+        template: fs.readFileSync('pdf-template.html', 'utf8'),
         printBackground: true
       };
-/*
-      const frontMatter =
-`
----
-pdf_options:
-  format: A3
-  margin: 30mm 20mm 30mm 20mm
-  printBackground: true
-  displayHeaderFooter: true
-  headerTemplate: |-
-    <style>
-      font-size: 11px;
-      margin-left: 10px;
-      text-align: left;
-      width: 100%;
-    </style>
-    <div class="header">
-      <span class="title">Your Title</span>
-    </div>
-  footerTemplate: |-
-    <style>
-      font-size: 11px;
-      text-align: center;
-      width: 100%;
-    </style>
-    <div class="footer">
-      Page <span class="pageNumber"></span> of <span class="totalPages"></span>
-    </div>
----
-`;
 
-
-      const md = frontMatter + "\n" + arg
-
-      console.log(md);
-*/
-      const md = `---
+      const frontMatter = `---
 pdf_options:
   format: A4
   margin: 30mm 20mm 30mm 20mm
   printBackground: true
   displayHeaderFooter: true
   headerTemplate: |-
-    <div class="header" style="font-size: 11px; text-align: left;">
+    <div class="header" style="font-size: 11px; text-align: center;">
       Test Header
     </div>
   footerTemplate: |-
     <div class="footer" style="font-size: 11px; text-align: center;">
-      Page <span class="pageNumber"></span>
+      Page <span class="pageNumber"></span> of <span class="totalPages"></span>
     </div>
 ---
-
-# Rapport Tests 450
-
-Content goes here.
 `;
 
-console.log(md)
+      const md = frontMatter + "\n" + arg
+
       const pdf = await mdToPdf({content: md }, options);
       event.returnValue = fs.writeFileSync(result.filePaths[0], pdf.content);
+
       shell.openPath(result.filePaths[0])
-    } catch (err) {
-      console.log(err)
+    } catch {
       event.returnValue = null;
     }
   });
