@@ -36,8 +36,8 @@ function fileModule() {
       });
 
       const options = {
-        template: fs.readFileSync('pdf-template.html', 'utf8'),
-        printBackground: true
+        template: fs.readFileSync("pdf-template.html", "utf8"),
+        printBackground: true,
       };
 
       const frontMatter = `---
@@ -47,22 +47,30 @@ pdf_options:
   printBackground: true
   displayHeaderFooter: true
   headerTemplate: |-
-    <div class="header" style="font-size: 11px; text-align: center;">
-      Test Header
+    <div>
+      <div class="header" style="font-size: 11px; text-align: center;">
+        <p>${ arg.headerFooter[0] }</p>
+        <p>${ arg.headerFooter[1] }</p>
+        <p>${ arg.headerFooter[2] }</p>
+      </div>
     </div>
   footerTemplate: |-
     <div class="footer" style="font-size: 11px; text-align: center;">
-      Page <span class="pageNumber"></span> of <span class="totalPages"></span>
+      <p>${ arg.headerFooter[3] }</p>
+      <p>${ arg.headerFooter[4] }</p>
+      <p>${ arg.headerFooter[5] }</p>
     </div>
 ---
 `;
 
-      const md = frontMatter + "\n" + arg
+      console.log(arg)
 
-      const pdf = await mdToPdf({content: md }, options);
+      const md = frontMatter + "\n" + arg.md;
+
+      const pdf = await mdToPdf({ content: md }, options);
       event.returnValue = fs.writeFileSync(result.filePaths[0], pdf.content);
 
-      shell.openPath(result.filePaths[0])
+      shell.openPath(result.filePaths[0]);
     } catch {
       event.returnValue = null;
     }

@@ -36,7 +36,16 @@ window.addEventListener("DOMContentLoaded", () => {
 //Export du fichier: renvoyer le texte
 window.addEventListener("DOMContentLoaded", () => {
   ipcRenderer.on("file-exported", (_event, _value) => {
+
+    const headerFooter = [document.getElementById("hl").value, document.getElementById("hc").value, document.getElementById("hr").value, document.getElementById("fl").value, document.getElementById("fc").value, document.getElementById("fr").value,]
+
+    console.log(headerFooter);
+
     const md = document.getElementById("editor").value;
-    ipcRenderer.sendSync("file:export", md);
+
+    ipcRenderer.sendSync("file:export", {
+      md: md,
+      headerFooter: headerFooter
+    });
   });
 });

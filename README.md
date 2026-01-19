@@ -1,6 +1,11 @@
 # MarkDown-Editor
 A markdown editor in electronjs
 
+## Header/Footer
+- `<span class="date"></span>`
+- `<span class="pageNumber"></span>`
+- `<span class="totalPages"></span>`
+
 ## Fonctionnalités
 ### Minimum
 - [ ] Ecriture de documents en markdown
@@ -24,6 +29,6 @@ A markdown editor in electronjs
 
 ## Objectifs
 ### Semaine 1
-- [ ] Application electron avec une zone de texte
-- [ ] Affichage d'une preview (pas forcement en temps réel)
-- [ ] Sauvegarde et ouverture de fichiers
+- [x] Application electron avec une zone de texte
+- [x] Affichage d'une preview (pas forcement en temps réel)
+- [x] Sauvegarde et ouverture de fichiers

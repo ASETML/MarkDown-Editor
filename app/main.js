@@ -91,7 +91,7 @@ const createWindow = async () => {
     height: screen.getPrimaryDisplay().workAreaSize.height,
     webPreferences: {
       preload: path.join(__dirname, "client/preload.js"),
-      autoplayPolicy: 'no-user-gesture-required',
+      autoplayPolicy: "no-user-gesture-required",
       experimentalFeatures: false,
     },
   });
