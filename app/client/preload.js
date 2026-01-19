@@ -36,7 +36,7 @@ window.addEventListener("DOMContentLoaded", () => {
 //Export du fichier: renvoyer le texte
 window.addEventListener("DOMContentLoaded", () => {
   ipcRenderer.on("file-exported", (_event, _value) => {
-    const html = document.getElementById("preview").innerHTML;
-    ipcRenderer.sendSync("file:export", html);
+    const md = document.getElementById("editor").value;
+    ipcRenderer.sendSync("file:export", md);
   });
 });

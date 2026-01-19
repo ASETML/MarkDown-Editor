@@ -1,4 +1,4 @@
-const { ipcMain, Notification } = require("electron");
+const { ipcMain, Notification, shell } = require("electron");
 const { dialog } = require("electron/main");
 const fs = require("node:fs");
 const { mdToPdf } = require("md-to-pdf");
@@ -34,9 +34,74 @@ function fileModule() {
       const result = await dialog.showOpenDialog({
         properties: ["promptToCreate"],
       });
-      const pdf = await mdToPdf({ content: arg });
+
+      const options = {
+        template: fs.readFileSync('template.html', 'utf8'),
+        printBackground: true
+      };
+/*
+      const frontMatter =
+`
+---
+pdf_options:
+  format: A3
+  margin: 30mm 20mm 30mm 20mm
+  printBackground: true
+  displayHeaderFooter: true
+  headerTemplate: |-
+    <style>
+      font-size: 11px;
+      margin-left: 10px;
+      text-align: left;
+      width: 100%;
+    </style>
+    <div class="header">
+      <span class="title">Your Title</span>
+    </div>
+  footerTemplate: |-
+    <style>
+      font-size: 11px;
+      text-align: center;
+      width: 100%;
+    </style>
+    <div class="footer">
+      Page <span class="pageNumber"></span> of <span class="totalPages"></span>
+    </div>
+---
+`;
+
+
+      const md = frontMatter + "\n" + arg
+
+      console.log(md);
+*/
+      const md = `---
+pdf_options:
+  format: A4
+  margin: 30mm 20mm 30mm 20mm
+  printBackground: true
+  displayHeaderFooter: true
+  headerTemplate: |-
+    <div class="header" style="font-size: 11px; text-align: left;">
+      Test Header
+    </div>
+  footerTemplate: |-
+    <div class="footer" style="font-size: 11px; text-align: center;">
+      Page <span class="pageNumber"></span>
+    </div>
+---
+
+# Rapport Tests 450
+
+Content goes here.
+`;
+
+console.log(md)
+      const pdf = await mdToPdf({content: md }, options);
       event.returnValue = fs.writeFileSync(result.filePaths[0], pdf.content);
-    } catch {
+      shell.openPath(result.filePaths[0])
+    } catch (err) {
+      console.log(err)
       event.returnValue = null;
     }
   });
