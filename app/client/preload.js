@@ -67,6 +67,7 @@ window.addEventListener("DOMContentLoaded", () => {
         .value.replace(/[\n\r]/g, " "),
       margins: margins,
       paperFormat: document.getElementById("pf").value || "A4",
+      title: document.getElementById("title").value,
     });
   });
 });

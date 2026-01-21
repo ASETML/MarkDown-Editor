@@ -3,6 +3,7 @@ const { dialog } = require("electron/main");
 const fs = require("node:fs");
 const { mdToPdf } = require("md-to-pdf");
 const { configFile } = require("./configFile");
+const { PDFDocument } = require("pdf-lib");
 
 //Contient les fonctions pour la gestion des fichiers
 //Ecoute les messages du frontend
@@ -41,7 +42,6 @@ function fileModule() {
       };
 
       const frontMatter = `---
-title: "Your Desired PDF Title"
 css: |-
     ${arg.customBody}
 pdf_options:
@@ -72,7 +72,22 @@ pdf_options:
       const md = frontMatter + "\n" + arg.md;
 
       const pdf = await mdToPdf({ content: md }, options);
-      event.returnValue = fs.writeFileSync(result.filePaths[0], pdf.content);
+      fs.writeFileSync(result.filePaths[0], pdf.content);
+
+      //Changer le titre du pdf
+      const existingpdf = fs.readFileSync(result.filePaths[0]);
+      const pdfDoc = await PDFDocument.load(existingpdf, {
+        updateMetadata: false,
+      });
+
+      if (!arg.title) {
+        arg.title = result.filePaths[0].replace(/^.*[\\/]/, "");
+      }
+
+      pdfDoc.setTitle(arg.title);
+
+      const pdfBytes = await pdfDoc.save();
+      event.returnValue = fs.writeFileSync(result.filePaths[0], pdfBytes);
 
       shell.openPath(result.filePaths[0]);
     } catch {
