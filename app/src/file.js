@@ -41,9 +41,12 @@ function fileModule() {
       };
 
       const frontMatter = `---
+title: "Your Desired PDF Title"
+css: |-
+    ${arg.customBody}
 pdf_options:
-  format: A4
-  margin: 30mm 20mm 30mm 20mm
+  format: ${arg.paperFormat}
+  margin: ${arg.margins[0]} ${arg.margins[1]} ${arg.margins[2]} ${arg.margins[3]}
   printBackground: true
   displayHeaderFooter: true
   headerTemplate: |-

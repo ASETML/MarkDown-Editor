@@ -45,6 +45,13 @@ window.addEventListener("DOMContentLoaded", () => {
       document.getElementById("fr").value,
     ];
 
+    const margins = [
+      document.getElementById("mt").value || "30mm",
+      document.getElementById("mr").value || "20mm",
+      document.getElementById("mb").value || "30mm",
+      document.getElementById("ml").value || "20mm",
+    ];
+
     console.log(headerFooter);
 
     const md = document.getElementById("editor").value;
@@ -55,6 +62,11 @@ window.addEventListener("DOMContentLoaded", () => {
       customStyle: document
         .getElementById("customStyle")
         .value.replace(/[\n\r]/g, " "),
+      customBody: document
+        .getElementById("customBody")
+        .value.replace(/[\n\r]/g, " "),
+      margins: margins,
+      paperFormat: document.getElementById("pf").value || "A4",
     });
   });
 });

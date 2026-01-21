@@ -160,7 +160,8 @@ input:focus {
   outline: none;
 }
 
-#customStyle {
+#customStyle,
+#customBody {
   field-sizing: content;
 }
 
@@ -169,4 +170,17 @@ input:focus {
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
+}
+
+.marginGrid {
+  display: grid;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+}
+
+.marginGrid input {
+  field-sizing: content;
 }
