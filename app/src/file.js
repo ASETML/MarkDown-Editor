@@ -47,15 +47,13 @@ pdf_options:
   printBackground: true
   displayHeaderFooter: true
   headerTemplate: |-
-    <div>
-      <div class="header" style="font-size: 11px; text-align: center;">
-        <p>${ arg.headerFooter[0] }</p>
-        <p>${ arg.headerFooter[1] }</p>
-        <p>${ arg.headerFooter[2] }</p>
-      </div>
+    <div class="header" style="font-size: 11px; text-align: center; width: 100%; display: flex; flex-direction: row; justify-content: space-around;">
+      <p>${ arg.headerFooter[0] }</p>
+      <p>${ arg.headerFooter[1] }</p>
+      <p>${ arg.headerFooter[2] }</p>
     </div>
   footerTemplate: |-
-    <div class="footer" style="font-size: 11px; text-align: center;">
+    <div class="footer" style="font-size: 11px; text-align: center; width: 100%; display: flex; flex-direction: row; justify-content: space-around;">
       <p>${ arg.headerFooter[3] }</p>
       <p>${ arg.headerFooter[4] }</p>
       <p>${ arg.headerFooter[5] }</p>

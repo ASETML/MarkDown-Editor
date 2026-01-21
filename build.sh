@@ -1,4 +1,6 @@
 echo "Build de l'application"
+cd app/out
+npm run make && npm run package
 
 # Déplacer l'exe portable
 
