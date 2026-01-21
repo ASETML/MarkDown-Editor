@@ -67,8 +67,6 @@ pdf_options:
 ---
 `;
 
-      console.log(arg);
-
       const md = frontMatter + "\n" + arg.md;
 
       const pdf = await mdToPdf({ content: md }, options);

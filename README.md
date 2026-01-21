@@ -6,7 +6,7 @@ A markdown editor in electronjs
 Il y a une grille avec 3 emplacements pour le header et 3 emplacements pour le footer. On peut les remplir librement, avec du texte ou du html, ou les laisser vides. Certainent valeur permettent d'insérer des valeures spéciales
 - `<span class="date"></span>`: La date actuelle
 - `<span class="pageNumber"></span>`: Le numéro de page
-- `<span class="totalPages"></span>`: Le nombre totale de page
+- `<span class="totalPages"></span>`: Le nombre total de page
 
 Il est également possible de modifier le header/footer avec du css, voici le template html utilisé:
 ```html

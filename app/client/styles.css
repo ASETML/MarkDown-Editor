@@ -111,20 +111,20 @@ tr:nth-child(even) {
   }
 }
 
-#preview::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 12px; /* Width of the scrollbar */
 }
 
-#preview::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background-color: #d81159; /* Color of the draggable part */
   border-radius: 50px;
 }
 
-#preview::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   background-color: #330036; /* Background of the scrollbar track */
 }
 
-textarea::-webkit-scrollbar {
+#editor::-webkit-scrollbar {
   display: none;
 }
 
