@@ -45,7 +45,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
     ipcRenderer.sendSync("file:export", {
       md: md,
-      headerFooter: headerFooter
+      headerFooter: headerFooter,
+      headerStyle: document.getElementById("headerStyle").value,
+      footerStyle: document.getElementById("footerStyle").value,
     });
   });
 });

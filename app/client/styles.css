@@ -159,3 +159,7 @@ input:focus {
   border: none;
   outline: none;
 }
+
+#headerStyle, #footerStyle {
+  field-sizing: content;
+}
