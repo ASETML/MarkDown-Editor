@@ -129,13 +129,13 @@ textarea::-webkit-scrollbar {
 }
 
 .input-row {
-    display: flex;          /* Use flexbox for inline arrangement */
-    margin-bottom: 15px;   /* Space between the input rows */
+  display: flex; /* Use flexbox for inline arrangement */
+  margin-bottom: 15px; /* Space between the input rows */
 }
 
 .input-row input {
-    margin-right: 10px;    /* Space between input fields */
-    flex: 1;               /* Makes inputs take available space equally */
+  margin-right: 10px; /* Space between input fields */
+  flex: 1; /* Makes inputs take available space equally */
 }
 
 details {
@@ -160,6 +160,13 @@ input:focus {
   outline: none;
 }
 
-#headerStyle, #footerStyle {
+#customStyle {
   field-sizing: content;
+}
+
+.customHeaderFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
 }

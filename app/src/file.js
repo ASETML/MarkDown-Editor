@@ -48,26 +48,23 @@ pdf_options:
   displayHeaderFooter: true
   headerTemplate: |-
     <style>
-      ${arg.headerStyle}
+      ${arg.customStyle}
     </style>
     <div class="header" style="font-size: 11px; text-align: center; width: 100%; display: flex; flex-direction: row; justify-content: space-around;">
-      <p>${ arg.headerFooter[0] }</p>
-      <p>${ arg.headerFooter[1] }</p>
-      <p>${ arg.headerFooter[2] }</p>
+      <p>${arg.headerFooter[0]}</p>
+      <p>${arg.headerFooter[1]}</p>
+      <p>${arg.headerFooter[2]}</p>
     </div>
   footerTemplate: |-
-    <style>
-      ${arg.footerStyle}
-    </style>
     <div class="footer" style="font-size: 11px; text-align: center; width: 100%; display: flex; flex-direction: row; justify-content: space-around;">
-      <p>${ arg.headerFooter[3] }</p>
-      <p>${ arg.headerFooter[4] }</p>
-      <p>${ arg.headerFooter[5] }</p>
+      <p>${arg.headerFooter[3]}</p>
+      <p>${arg.headerFooter[4]}</p>
+      <p>${arg.headerFooter[5]}</p>
     </div>
 ---
 `;
 
-      console.log(arg)
+      console.log(arg);
 
       const md = frontMatter + "\n" + arg.md;
 
