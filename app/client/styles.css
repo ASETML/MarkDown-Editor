@@ -1,8 +1,15 @@
-/* styles.css */
+/* Variable definition, useful for themes */
+:root {
+  --bg-color: #0c120c;
+  --text-color: #ffffff;
+  --first-accent-color: #d81159;
+  --second-accent-color: #330036;
+}
+
 body {
   font-family: "Arial", sans-serif;
-  background-color: #0c120c; /* Dark background */
-  color: #ffffff; /* White text */
+  background-color: var(--bg-color); /* Dark background */
+  color: var(--text-color); /* White text */
   margin: 0;
   padding: 0;
   display: flex;
@@ -36,10 +43,10 @@ textarea {
   border-radius: 8px;
   padding: 10px;
   font-size: 1.2em;
-  background-color: #0c120c; /* Dark background for textarea */
-  color: #ffffff; /* White text color in textarea */
+  background-color: var(--bg-color); /* Dark background for textarea */
+  color: var(--text-color); /* White text color in textarea */
   resize: none; /* Disable resizing */
-  border: dashed 1px #d81159;
+  border: dashed 1px var(--first-accent-color);
   transition: all 1s;
 }
 
@@ -70,12 +77,16 @@ td {
 }
 
 th {
-  background-color: #330036; /* Dark background for table headers */
-  color: #ffffff; /* White text for headers */
+  background-color: var(
+    --second-accent-color
+  ); /* Dark background for table headers */
+  color: var(--text-color); /* White text for headers */
 }
 
 tr:nth-child(even) {
-  background-color: #330036; /* Light background for even rows */
+  background-color: var(
+    --second-accent-color
+  ); /* Light background for even rows */
 }
 
 /*Splash Screen*/
@@ -83,7 +94,7 @@ tr:nth-child(even) {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: #0c120c;
+  background-color: var(--bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -116,12 +127,14 @@ tr:nth-child(even) {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #d81159; /* Color of the draggable part */
+  background-color: var(--first-accent-color); /* Color of the draggable part */
   border-radius: 50px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #330036; /* Background of the scrollbar track */
+  background-color: var(
+    --second-accent-color
+  ); /* Background of the scrollbar track */
 }
 
 #editor::-webkit-scrollbar {
@@ -149,9 +162,9 @@ input {
   border-radius: 8px;
   padding: 10px;
   font-size: 1.2em;
-  background-color: #0c120c; /* Dark background for textarea */
-  color: #ffffff; /* White text color in textarea */
-  border: dashed 1px #d81159;
+  background-color: var(--bg-color); /* Dark background for textarea */
+  color: var(--text-color); /* White text color in textarea */
+  border: dashed 1px var(--first-accent-color);
   transition: all 1s;
 }
 
@@ -181,6 +194,11 @@ input:focus {
   grid-row-gap: 5px;
 }
 
-.marginGrid input {
+input {
   field-sizing: content;
+}
+
+.customStyle {
+  display: flex;
+  flex-direction: column;
 }
