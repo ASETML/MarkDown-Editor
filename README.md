@@ -45,14 +45,14 @@ Il est possible de donner un titre au document. La valeur par défaut est le nom
 
 ## Fonctionnalités
 ### Minimum
-- [ ] Ecriture de documents en markdown
-- [ ] Affichage d'une preview en temps réel
-- [ ] Export html/pdf
-	- [ ] En-têtes et pieds-de-pages customisés
-	- [ ] Taille de police et des titre
-	- [ ] Couleur de fond
-	- [ ] Taille des interlignes
-	- [ ] Choix de la police
+- [x] Ecriture de documents en markdown
+- [x] Affichage d'une preview en temps réel
+- [x] Export pdf
+	- [x] En-têtes et pieds-de-pages customisés
+	- [x] Taille de police et des titre
+	- [x] Couleur de fond
+	- [x] Taille des interlignes
+	- [x] Choix de la police
 - [ ] Rechercher et remplacer
 
 ### En plus

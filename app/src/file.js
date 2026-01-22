@@ -98,7 +98,7 @@ const saveAs = async (text) => {
   const dialogResult = await dialog.showSaveDialog({
     properties: ["promptToCreate", "showOverwriteConfirmation"],
   });
-  console.log(dialogResult)
+
   //Mettre à jour le chemin du fichier
   configFile.setOpenedFile(dialogResult.filePath);
 

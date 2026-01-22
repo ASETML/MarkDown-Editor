@@ -46,6 +46,7 @@
     "electron-squirrel-startup": "^1.0.1",
     "marked": "^17.0.1",
     "md-to-pdf": "^5.2.5",
-    "pdf-lib": "^1.17.1"
+    "pdf-lib": "^1.17.1",
+    "yaml": "^2.8.2"
   }
 }

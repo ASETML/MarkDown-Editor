@@ -123,6 +123,8 @@ const createWindow = async () => {
 //Démarrer l'app
 app.whenReady().then(() => {
   createWindow();
+  const { getThemes } = require("./src/theme.js");
+  getThemes();
 });
 
 //Quitte l'app si toute les fenêtres sont fermées
