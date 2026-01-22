@@ -32,8 +32,8 @@ function fileModule() {
   //Export le fichier
   ipcMain.on("file:export", async (event, arg) => {
     try {
-      const result = await dialog.showOpenDialog({
-        properties: ["promptToCreate"],
+      const result = await dialog.showSaveDialog({
+        properties: ["promptToCreate", "showOverwriteConfirmation"],
       });
 
       const options = {
@@ -70,24 +70,24 @@ pdf_options:
       const md = frontMatter + "\n" + arg.md;
 
       const pdf = await mdToPdf({ content: md }, options);
-      fs.writeFileSync(result.filePaths[0], pdf.content);
+      fs.writeFileSync(result.filePath, pdf.content);
 
       //Changer le titre du pdf
-      const existingpdf = fs.readFileSync(result.filePaths[0]);
+      const existingpdf = fs.readFileSync(result.filePath);
       const pdfDoc = await PDFDocument.load(existingpdf, {
         updateMetadata: false,
       });
 
       if (!arg.title) {
-        arg.title = result.filePaths[0].replace(/^.*[\\/]/, "");
+        arg.title = result.filePath.replace(/^.*[\\/]/, "");
       }
 
       pdfDoc.setTitle(arg.title);
 
       const pdfBytes = await pdfDoc.save();
-      event.returnValue = fs.writeFileSync(result.filePaths[0], pdfBytes);
+      event.returnValue = fs.writeFileSync(result.filePath, pdfBytes);
 
-      shell.openPath(result.filePaths[0]);
+      shell.openPath(result.filePath);
     } catch {
       event.returnValue = null;
     }
@@ -95,14 +95,15 @@ pdf_options:
 }
 
 const saveAs = async (text) => {
-  const dialogResult = await dialog.showOpenDialog({
-    properties: ["promptToCreate"],
+  const dialogResult = await dialog.showSaveDialog({
+    properties: ["promptToCreate", "showOverwriteConfirmation"],
   });
+  console.log(dialogResult)
   //Mettre à jour le chemin du fichier
-  configFile.setOpenedFile(dialogResult.filePaths[0]);
+  configFile.setOpenedFile(dialogResult.filePath);
 
-  const result = fs.writeFileSync(dialogResult.filePaths[0], text);
-  showNotification(dialogResult.filePaths[0]);
+  const result = fs.writeFileSync(dialogResult.filePath, text);
+  showNotification(dialogResult.filePath);
   return result;
 };
 
