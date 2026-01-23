@@ -101,6 +101,22 @@ const createWindow = async () => {
   win.maximize();
 
   win.once("ready-to-show", () => {
+    //Extraire les themes par défaut seulement lors du premier lancement
+    if (!fs.existsSync(path.join(app.getPath("userData"), "config.json"))) {
+      //Créer le dossier si il n'existe pas
+      if (!fs.existsSync(path.join(app.getPath("userData"), "themes"))) {
+        fs.mkdirSync(path.join(app.getPath("userData"), "themes"));
+      }
+
+      //Copier les thèmes par défaut
+      for (const p of fs.readdirSync(path.join(app.getAppPath(), "themes"))) {
+        fs.copyFileSync(
+          path.join(app.getAppPath(), "themes", p),
+          path.join(app.getPath("userData"), "themes", p),
+        );
+      }
+    }
+
     configFile.createIfNotExist();
     const file = configFile.getOpenedFile();
     //Ouvrir le dernier fichier par défaut
@@ -123,17 +139,6 @@ const createWindow = async () => {
 
 //Démarrer l'app
 app.whenReady().then(() => {
-  //NE FONCTIONNE PAS
-  //Extraire les themes par défaut
-  if (!fs.existsSync(path.join(app.getAppPath("userData"), "themes"))) {
-    fs.mkdirSync(path.join(app.getAppPath("userData"), "themes"))
-    console.log("SDF")
-  }
-  for (const p of fs.readdirSync(path.join(app.getAppPath(), "themes"))) {
-    console.log(p)
-    fs.rename(path.join(app.getAppPath(), "themes", p), path.join(app.getAppPath("userData"), "themes", p), () => {})
-  }
-  
   createWindow();
 });
 
