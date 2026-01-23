@@ -1,9 +1,9 @@
 # MarkDown-Editor
 A markdown editor in electronjs
-![](C:\Users\po37sqb\Documents\MarkDown-Editor\doc\Preview.png)
+![](./doc/Preview.png)
 
 ## Header/Footer
-Il y a une grille avec 3 emplacements pour le header et 3 emplacements pour le footer. On peut les remplir librement, avec du texte ou du html, ou les laisser vides. Certainent valeur permettent d'insérer des valeures spéciales
+Il y a une grille avec 3 emplacements pour le header et 3 emplacements pour le footer. On peut les remplir librement, avec du texte ou du html, ou les laisser vides. Certaines valeurs permettent d'insérer des valeurs spéciales
 - `<span class="date"></span>`: La date actuelle
 - `<span class="pageNumber"></span>`: Le numéro de page
 - `<span class="totalPages"></span>`: Le nombre total de page
@@ -48,7 +48,7 @@ Il est possible de créer des thèmes personnalisés. Chaque thème est un fichi
 
 | OS | Emplacement |
 | --- | --- |
-| Windows | C:\Users\{user}\AppData\Roaming\markdown-editor |
+| Windows | C:\Users\\{user}\AppData\Roaming\markdown-editor |
 | Linux | TODO |
 
 Les fichiers sont dans le dossier `themes` et ont le format suivant:

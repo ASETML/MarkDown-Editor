@@ -202,3 +202,10 @@ input {
   display: flex;
   flex-direction: column;
 }
+
+li div button {
+  background-color: var(--first-accent-color);
+  color: var(--bg-color);
+  border-radius: 5px;
+  height: auto;
+}

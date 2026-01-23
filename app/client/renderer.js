@@ -71,22 +71,32 @@ preview.addEventListener("scroll", () => {
 
 const themesArray = themes.requestList();
 
-//Apply default theme
-//applyTheme(JSON.stringify(themesArray.filter(t => t.path.replace(/^.*[\\/]/, '') === "default.yml")))
-
 for (const t of themesArray) {
   // Create a list item element
   const listItem = document.createElement("li");
 
+  const div = document.createElement("div");
+
+  // Create the theme name element
+  const name = document.createElement("p");
+  name.innerText = t.parsedYaml.name;
+
+  div.appendChild(name);
+
   // Create a button element
   const button = document.createElement("button");
-  button.innerText = t.parsedYaml.name;
+  button.innerText = "Use";
 
   // Bind the click event to applyTheme
   button.onclick = () => applyTheme(JSON.stringify(t));
 
   // Append the button to the list item
-  listItem.appendChild(button);
+  div.appendChild(button);
+
+  div.style =
+    "display: flex; flex-direction: row; justify-content: space-between";
+
+  listItem.appendChild(div);
 
   // Create and append the description paragraph
   const description = document.createElement("p");
