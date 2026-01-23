@@ -2,6 +2,7 @@ const { app, BrowserWindow, screen } = require("electron");
 const { Menu, dialog } = require("electron/main");
 const { markdownModule } = require("./src/markdown.js");
 const { fileModule } = require("./src/file.js");
+const { themeModule } = require("./src/theme.js");
 const fs = require("fs");
 const path = require("node:path");
 const { configFile } = require("./src/configFile.js");
@@ -123,8 +124,6 @@ const createWindow = async () => {
 //Démarrer l'app
 app.whenReady().then(() => {
   createWindow();
-  const { getThemes } = require("./src/theme.js");
-  getThemes();
 });
 
 //Quitte l'app si toute les fenêtres sont fermées
@@ -137,3 +136,6 @@ markdownModule();
 
 //Ecoute les messages pour les fichiers
 fileModule();
+
+//Ecoute les messages pour les themes
+themeModule();

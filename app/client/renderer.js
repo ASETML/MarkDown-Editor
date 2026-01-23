@@ -68,3 +68,42 @@ preview.addEventListener("scroll", () => {
     }, 1);
   }
 });
+
+const themesArray = themes.requestList();
+
+//Apply default theme
+//applyTheme(JSON.stringify(themesArray.filter(t => t.path.replace(/^.*[\\/]/, '') === "default.yml")))
+
+for (const t of themesArray) {
+  // Create a list item element
+  const listItem = document.createElement("li");
+
+  // Create a button element
+  const button = document.createElement("button");
+  button.innerText = t.parsedYaml.name;
+
+  // Bind the click event to applyTheme
+  button.onclick = () => applyTheme(JSON.stringify(t));
+
+  // Append the button to the list item
+  listItem.appendChild(button);
+
+  // Create and append the description paragraph
+  const description = document.createElement("p");
+  description.innerText = t.parsedYaml.description;
+  listItem.appendChild(description);
+
+  // Append the list item to the theme list
+  document.getElementById("themeList").appendChild(listItem);
+}
+
+const applyTheme = (theme) => {
+  theme = JSON.parse(theme);
+  document.getElementById("themeStyle").innerHTML = theme.parsedYaml.style;
+  themes.setLast(theme);
+};
+
+const lastTheme = themes.getLast();
+if (lastTheme) {
+  document.getElementById("themeStyle").innerHTML = lastTheme.parsedYaml.style;
+}

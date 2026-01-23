@@ -5,6 +5,12 @@ contextBridge.exposeInMainWorld("markdown", {
   parse: (text) => ipcRenderer.sendSync("markdown:parse", text),
 });
 
+contextBridge.exposeInMainWorld("themes", {
+  requestList: (_) => ipcRenderer.sendSync("themes:request-list"),
+  setLast: (theme) => ipcRenderer.sendSync("themes:set-last", theme),
+  getLast: () => ipcRenderer.sendSync("themes:request-last-used"),
+});
+
 //Ouverture du fichier: remplacer le texte
 window.addEventListener("DOMContentLoaded", () => {
   const editor = document.getElementById("editor");

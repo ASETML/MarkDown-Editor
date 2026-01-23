@@ -3,19 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
+
     <link rel="stylesheet" href="styles.css" />
     <title>MarkDown-Editor</title>
   </head>
 
   <body>
+    <style id="themeStyle"></style>
     <div class="splash-screen">
       <img src="images/MarkDownEditor-logo.png" alt="Splash Image" />
     </div>
@@ -59,16 +53,7 @@
       </details>
       <details>
         <summary>Themes</summary>
-        <ul>
-          <li>
-            <button>Theme name</button>
-            <p>Theme description</p>
-          </li>
-          <li>
-            <button>Theme name</button>
-            <p>Theme description</p>
-          </li>
-        </ul>
+        <ul id="themeList"></ul>
       </details>
     </div>
     <main>
