@@ -1,0 +1,9 @@
+name: Blue theme
+description: The blue theme for MarkDown-Editor
+style: |
+  :root {
+  --bg-color: #094074;
+  --text-color: #FFDD4A;
+  --first-accent-color: #5ADBFF;
+  --second-accent-color: #3C6997;
+  }

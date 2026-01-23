@@ -1,0 +1,9 @@
+name: Coral breeze
+description: A refreshing and modern aesthetic
+style: |
+  :root {
+    --bg-color: #FFFFFF;
+    --text-color: #4C5454;
+    --first-accent-color: #FF715B;
+    --second-accent-color: #1EA896;
+  }

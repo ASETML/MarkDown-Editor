@@ -5,8 +5,6 @@ const path = require("node:path");
 const configFilePath = path.join(app.getPath("userData"), "config.json");
 
 const createIfNotExist = () => {
-  //const configFilePath = path.join(app.getPath("userData"), "config.json");
-
   //Créer le fichier de config si il n'existe pas
   if (!fs.existsSync(configFilePath)) {
     fs.writeFileSync(configFilePath, "{}");
@@ -14,7 +12,6 @@ const createIfNotExist = () => {
 };
 
 const getConfig = () => {
-  //const configFilePath = path.join(app.getPath("userData"), "config.json");
   const configJson = fs.readFileSync(configFilePath, "utf8");
   return JSON.parse(configJson);
 };

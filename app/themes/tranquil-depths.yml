@@ -1,0 +1,9 @@
+name: Tranquil depths
+description: A theme that evoke a sense of peace and serenity
+style: |
+  :root {
+  --bg-color: #131B23;
+  --text-color: #E9F1F7;
+  --first-accent-color: #E7DFC6;
+  --second-accent-color: #2274A5;
+  }

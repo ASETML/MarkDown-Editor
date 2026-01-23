@@ -1,0 +1,9 @@
+name: Fireside glow light
+description: A theme that reflects the warm and inviting hues reminiscent of a cozy fire
+style: |
+  :root {
+  --bg-color: #FBFFFE;
+  --text-color: #001514;
+  --first-accent-color: #6B0504;
+  --second-accent-color: #A3320B;
+  }

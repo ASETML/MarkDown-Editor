@@ -15,7 +15,8 @@
   "type": "commonjs",
   "main": "main.js",
   "files": [
-    "client/images/*"
+    "client/images/*",
+    "themes/*"
   ],
   "scripts": {
     "start": "electron .",

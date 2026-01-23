@@ -123,6 +123,17 @@ const createWindow = async () => {
 
 //Démarrer l'app
 app.whenReady().then(() => {
+  //NE FONCTIONNE PAS
+  //Extraire les themes par défaut
+  if (!fs.existsSync(path.join(app.getAppPath("userData"), "themes"))) {
+    fs.mkdirSync(path.join(app.getAppPath("userData"), "themes"))
+    console.log("SDF")
+  }
+  for (const p of fs.readdirSync(path.join(app.getAppPath(), "themes"))) {
+    console.log(p)
+    fs.rename(path.join(app.getAppPath(), "themes", p), path.join(app.getAppPath("userData"), "themes", p), () => {})
+  }
+  
   createWindow();
 });
 

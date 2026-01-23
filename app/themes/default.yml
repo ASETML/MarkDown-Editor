@@ -1,0 +1,9 @@
+name: Default theme
+description: The default theme for MarkDown-Editor
+style: |
+  :root {
+  --bg-color: #0c120c;
+  --text-color: #ffffff;
+  --first-accent-color: #d81159;
+  --second-accent-color: #330036;
+  }
