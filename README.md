@@ -1,6 +1,6 @@
 # MarkDown-Editor
 A markdown editor in electronjs
-![](./doc/Preview.png)
+![](C:\Users\po37sqb\Documents\MarkDown-Editor\doc\Preview.png)
 
 ## Header/Footer
 Il y a une grille avec 3 emplacements pour le header et 3 emplacements pour le footer. On peut les remplir librement, avec du texte ou du html, ou les laisser vides. Certainent valeur permettent d'insérer des valeures spéciales
@@ -42,6 +42,31 @@ Les valeurs par défaut sont:
 
 ## Titre
 Il est possible de donner un titre au document. La valeur par défaut est le nom du fichier.
+
+## Thèmes personnalisés
+Il est possible de créer des thèmes personnalisés. Chaque thème est un fichier YAML dans le répertoire "userData" qui est à un emplacement différents selon le système d'exploitation.
+
+| OS | Emplacement |
+| --- | --- |
+| Windows | C:\Users\{user}\AppData\Roaming\markdown-editor |
+| Linux | TODO |
+
+Les fichiers sont dans le dossier `themes` et ont le format suivant:
+```
+name: Default theme
+description: The default theme for MarkDown-Editor
+style: |
+  :root {
+  --bg-color: #0c120c;
+  --text-color: #ffffff;
+  --first-accent-color: #d81159;
+  --second-accent-color: #330036;
+  }
+```
+- --bg-color: la couleur de fond de l'éditeur
+- --text-color: la couleur du texte
+- --first-accent-color: la couleur des bordures et de la scrollbar
+- --second-accent-color: la couleur des tableaux et du fond de la scrollbar
 
 ## Fonctionnalités
 ### Minimum
