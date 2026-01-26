@@ -19,7 +19,7 @@ function fileModule() {
       if (file) {
         const result = fs.writeFileSync(file, arg);
         event.returnValue = result;
-        showNotification(file);
+        showFileSavedNotification(file);
       } else {
         event.returnValue = await saveAs(arg);
       }
@@ -36,17 +36,21 @@ function fileModule() {
   //Export le fichier
   ipcMain.on("file:export", async (event, arg) => {
     try {
+      //Le nom du fichier exporté
       const result = await dialog.showSaveDialog({
         properties: ["promptToCreate", "showOverwriteConfirmation"],
       });
 
+      //Option pour md-pdf
       const options = {
         template: fs.readFileSync("pdf-template.html", "utf8"),
         printBackground: true,
       };
 
+      //Remplacer les raccourcis pour les valeurs spéciales du header/footer
       arg.headerFooter = replaceSpecialHeaderFooterValue(arg.headerFooter);
 
+      //Doit être présent au début du document pour la mise en forme de md-pdf
       const frontMatter = `---
 css: |-
     ${arg.customBody}
@@ -73,8 +77,10 @@ pdf_options:
 ---
 `;
 
+      //Ajouter le frontmatter au début du document
       const md = frontMatter + "\n" + arg.md;
 
+      //Convertir en pdf et sauver le fichier
       const pdf = await mdToPdf({ content: md }, options);
       fs.writeFileSync(result.filePath, pdf.content);
 
@@ -84,15 +90,18 @@ pdf_options:
         updateMetadata: false,
       });
 
+      //Si il n'y a pas de titre, le titre du pdf est le nom du fichier sans le chemin
       if (!arg.title) {
         arg.title = result.filePath.replace(/^.*[\\/]/, "");
       }
 
       pdfDoc.setTitle(arg.title);
 
+      //Sauvegarder le pdf après avoir modifié le titre
       const pdfBytes = await pdfDoc.save();
       event.returnValue = fs.writeFileSync(result.filePath, pdfBytes);
 
+      //Ouvrir le pdf dans le navigateur
       shell.openPath(result.filePath);
     } catch {
       event.returnValue = null;
@@ -100,6 +109,7 @@ pdf_options:
   });
 }
 
+//Sauvegarder un fichier sous un nom différent
 const saveAs = async (text) => {
   try {
     const dialogResult = await dialog.showSaveDialog({
@@ -110,39 +120,51 @@ const saveAs = async (text) => {
     configFile.setOpenedFile(dialogResult.filePath);
 
     const result = fs.writeFileSync(dialogResult.filePath, text);
-    showNotification(dialogResult.filePath);
+    showFileSavedNotification(dialogResult.filePath);
     return result;
   } catch {
     return;
   }
 };
 
-const showNotification = (fileName) => {
+//Affiche une notification "Fichier sauvegardé"
+const showFileSavedNotification = (fileName) => {
   new Notification({
     title: "File Saved",
-    body: `The file ${fileName} à été sauvegardé`,
+    body: `The file ${fileName} was saved`,
   }).show();
 };
 
+//Remplace les raccourcis des valeurs spéciales (date, numéro de page, etc) par un élément avec la bonne classe
 const replaceSpecialHeaderFooterValue = (headerFooter) => {
+  //Les valeurs à remplacer
   const specialValues = [
     { "{{date}}": '<span class="date"></span>' },
     { "{{pageNumber}}": '<span class="pageNumber"></span>' },
     { "{{totalPages}}": '<span class="totalPages"></span>' },
   ];
 
-  const oldHeaderFooter = [...headerFooter]
+  //On copie le tableau: opérateur spread pour enlever la réference
+  const oldHeaderFooter = [...headerFooter];
 
+  //Pour chaque case du tableau
   for (const item of headerFooter) {
+    //Une case peux avoir plusieurs raccourcis à remplacer
     for (const part of item.split(" ")) {
+      //Pour tous les raccourcis
       for (const specialValue of specialValues) {
+        //Si la case contient un raccourci
         if (specialValue[part]) {
+          //Trouver l'index actuel
           const i = oldHeaderFooter.indexOf(item);
+
+          //Remplacer le raccourci
           headerFooter[i] = headerFooter[i].replace(part, specialValue[part]);
         }
       }
     }
   }
+
   return headerFooter;
 };
 
