@@ -45,7 +45,7 @@ function fileModule() {
         printBackground: true,
       };
 
-      arg.headerFooter = replaceSpecialHeaderFooterValue(arg.headerFooter)
+      arg.headerFooter = replaceSpecialHeaderFooterValue(arg.headerFooter);
 
       const frontMatter = `---
 css: |-
@@ -125,19 +125,25 @@ const showNotification = (fileName) => {
 };
 
 const replaceSpecialHeaderFooterValue = (headerFooter) => {
-  const specialValues = [{'{{date}}': '<span class="date"></span>'}, {'{{pageNumber}}': '<span class="pageNumber"></span>'}, {'{{totalPages}}': '<span class="totalPages"></span>'}]
+  const specialValues = [
+    { "{{date}}": '<span class="date"></span>' },
+    { "{{pageNumber}}": '<span class="pageNumber"></span>' },
+    { "{{totalPages}}": '<span class="totalPages"></span>' },
+  ];
+
+  const oldHeaderFooter = [...headerFooter]
+
   for (const item of headerFooter) {
-    for (const specialValue of specialValues) {
-      if (specialValue[item]) {
-        console.log("I " + item)
-        const i = headerFooter.indexOf(item)
-        headerFooter[i] = specialValue[item]
+    for (const part of item.split(" ")) {
+      for (const specialValue of specialValues) {
+        if (specialValue[part]) {
+          const i = oldHeaderFooter.indexOf(item);
+          headerFooter[i] = headerFooter[i].replace(part, specialValue[part]);
+        }
       }
     }
   }
-
-  console.log(headerFooter)
-  return headerFooter
-}
+  return headerFooter;
+};
 
 module.exports = { fileModule };
