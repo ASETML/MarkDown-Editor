@@ -45,6 +45,8 @@ function fileModule() {
         printBackground: true,
       };
 
+      arg.headerFooter = replaceSpecialHeaderFooterValue(arg.headerFooter)
+
       const frontMatter = `---
 css: |-
     ${arg.customBody}
@@ -121,5 +123,21 @@ const showNotification = (fileName) => {
     body: `The file ${fileName} à été sauvegardé`,
   }).show();
 };
+
+const replaceSpecialHeaderFooterValue = (headerFooter) => {
+  const specialValues = [{'{{date}}': '<span class="date"></span>'}, {'{{pageNumber}}': '<span class="pageNumber"></span>'}, {'{{totalPages}}': '<span class="totalPages"></span>'}]
+  for (const item of headerFooter) {
+    for (const specialValue of specialValues) {
+      if (specialValue[item]) {
+        console.log("I " + item)
+        const i = headerFooter.indexOf(item)
+        headerFooter[i] = specialValue[item]
+      }
+    }
+  }
+
+  console.log(headerFooter)
+  return headerFooter
+}
 
 module.exports = { fileModule };
