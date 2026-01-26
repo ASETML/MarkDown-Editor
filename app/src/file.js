@@ -14,13 +14,17 @@ function fileModule() {
 
   //Sauve le fichier
   ipcMain.on("file:save", async (event, arg) => {
-    const file = configFile.getOpenedFile();
-    if (file) {
-      const result = fs.writeFileSync(file, arg);
-      event.returnValue = result;
-      showNotification(file);
-    } else {
-      event.returnValue = await saveAs(arg);
+    try {
+      const file = configFile.getOpenedFile();
+      if (file) {
+        const result = fs.writeFileSync(file, arg);
+        event.returnValue = result;
+        showNotification(file);
+      } else {
+        event.returnValue = await saveAs(arg);
+      }
+    } catch {
+      event.returnValue = null;
     }
   });
 
@@ -95,16 +99,20 @@ pdf_options:
 }
 
 const saveAs = async (text) => {
-  const dialogResult = await dialog.showSaveDialog({
-    properties: ["promptToCreate", "showOverwriteConfirmation"],
-  });
+  try {
+    const dialogResult = await dialog.showSaveDialog({
+      properties: ["promptToCreate", "showOverwriteConfirmation"],
+    });
 
-  //Mettre à jour le chemin du fichier
-  configFile.setOpenedFile(dialogResult.filePath);
+    //Mettre à jour le chemin du fichier
+    configFile.setOpenedFile(dialogResult.filePath);
 
-  const result = fs.writeFileSync(dialogResult.filePath, text);
-  showNotification(dialogResult.filePath);
-  return result;
+    const result = fs.writeFileSync(dialogResult.filePath, text);
+    showNotification(dialogResult.filePath);
+    return result;
+  } catch {
+    return;
+  }
 };
 
 const showNotification = (fileName) => {
