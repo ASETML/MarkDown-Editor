@@ -58,8 +58,6 @@ window.addEventListener("DOMContentLoaded", () => {
       document.getElementById("ml").value || "20mm",
     ];
 
-    console.log(headerFooter);
-
     const md = document.getElementById("editor").value;
 
     ipcRenderer.sendSync("file:export", {

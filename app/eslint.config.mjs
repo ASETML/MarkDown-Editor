@@ -1,9 +1,10 @@
 import js from "@eslint/js";
 import globals from "globals";
 import css from "@eslint/css";
-import { defineConfig } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
+  globalIgnores(["test/*"]),
   {
     rules: {
       "no-unused-vars": [
