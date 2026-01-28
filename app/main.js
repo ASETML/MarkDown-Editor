@@ -3,6 +3,7 @@ const { Menu, dialog } = require("electron/main");
 const { markdownModule } = require("./src/markdown.js");
 const { fileModule } = require("./src/file.js");
 const { themeModule } = require("./src/theme.js");
+const { aiModule } = require("./src/ai.js")
 const fs = require("fs");
 const path = require("node:path");
 const { configFile } = require("./src/configFile.js");
@@ -138,7 +139,7 @@ const createWindow = async () => {
 };
 
 //Démarrer l'app
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   createWindow();
 });
 
@@ -155,3 +156,6 @@ fileModule();
 
 //Ecoute les messages pour les themes
 themeModule();
+
+//Ecoute les messages pour l'ia
+aiModule();

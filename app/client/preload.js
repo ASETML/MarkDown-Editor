@@ -11,6 +11,10 @@ contextBridge.exposeInMainWorld("themes", {
   getLast: () => ipcRenderer.sendSync("themes:request-last-used"),
 });
 
+contextBridge.exposeInMainWorld("ai", {
+  formatText: (text) => ipcRenderer.sendSync("ai:format-text", text),
+});
+
 //Ouverture du fichier: remplacer le texte
 window.addEventListener("DOMContentLoaded", () => {
   const editor = document.getElementById("editor");

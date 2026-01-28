@@ -117,3 +117,10 @@ const lastTheme = themes.getLast();
 if (lastTheme) {
   document.getElementById("themeStyle").innerHTML = lastTheme.parsedYaml.style;
 }
+
+document.getElementById("aiButton").addEventListener("click", function() {
+    document.getElementById("aiButton").disabled = true
+    document.getElementById("editor").value = ai.formatText(document.getElementById("editor").value);
+    showPreview();
+    document.getElementById("aiButton").disabled = false
+});
